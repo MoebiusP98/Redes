@@ -8,13 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Bar extends Model
 {
     //
-    protected $table      = 'Bares';
-    protected $primaryKey = 'uri_bar';
-    protected $keyType    = 'string';
-    protected $fillable   = ['name'];
+    use HasFactory
+    protected $fillable = ['titulo', 'contenido'];
 
-    public $timestamps    = false;
-    public $incrementing  = false;
 
 
     public function scopeFilter($query, $filter)
