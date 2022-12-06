@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+//controladores
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\BarController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,14 +24,15 @@ Route::get('/', function () {
 })->name('home');
 
 
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::group(['middleware' =>['auth']], function(){
+    Route::resource('roles', RoleController::class);
+    Route::resource('usuarios', UsuarioController::class);
+    Route::resource('roles', BarController::class);
+});
