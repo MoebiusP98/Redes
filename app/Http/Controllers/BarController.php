@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bares\Bar;
 
 class BarController extends Controller
 {
+
+    function __construct()
+    {
+       $this->middleware('permission:ver-bar | crear-bar | editar-bar | borrar-role',['only'=>['index']]);
+       $this->middleware('permission:crear-bar',  ['only'=>['create', 'store']]); 
+       $this->middleware('permission:editar-bar', ['only'=>['edit', 'update']]);
+       $this->middleware('permission:borrar-bar', ['only'=>['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,9 +22,9 @@ class BarController extends Controller
      */
     public function index()
     {
-        //
+        $bar = Bar::paginate(5);
+        return view('blog.index', compact('bares'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -23,7 +32,7 @@ class BarController extends Controller
      */
     public function create()
     {
-        //
+        return view('bares.crear');
     }
 
     /**
@@ -34,7 +43,14 @@ class BarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+                'nombre'    => 'required',
+                'contenido' => 'required' 
+
+        ]);
+
+        Bar::create($request->all());
+        return redirect()->route('bares.index');
     }
 
     /**
@@ -54,9 +70,9 @@ class BarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Bar $bar)
     {
-        //
+        return view('bares.editar', compact('bares'));
     }
 
     /**
@@ -66,9 +82,17 @@ class BarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Bar $bar)
     {
-        //
+       request()->validate([
+
+        'nombre' => 'required',
+        'contenido' => 'required'
+
+       ]);
+
+       $bar->update($request->all());
+       return redirect()->route('bares.index');
     }
 
     /**
@@ -77,8 +101,9 @@ class BarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Bar $bar)
     {
-        //
+        $bar->delete();
+        return redirect()->route('bares.index');
     }
 }
