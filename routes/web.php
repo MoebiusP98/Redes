@@ -20,8 +20,8 @@ use App\Http\Controllers\BarController;
 */
 
 Route::get('/', function () {
-    return view('index');
-})->name('home');
+    return view('welcome');
+});
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -33,6 +33,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' =>['auth']], function(){
     Route::resource('roles', RoleController::class);
-    Route::resource('usuarios', UsuarioController::class);
-    Route::resource('roles', BarController::class);
+    Route::resource('users', UsuarioController::class);
+    Route::resource('bares', BarController::class);
 });

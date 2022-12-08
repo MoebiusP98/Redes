@@ -9,7 +9,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Arr;
 class UsuarioController extends Controller
 {
     /**
@@ -19,8 +19,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = User::paginate(5);
-        return view('usuarios.index', compact('usuarios'));
+        $users = User::paginate(5);
+        return view('users.index', compact('users'));
 
     }
 
@@ -31,8 +31,8 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        Role::pluck('name', 'name')->all();
-        return view('usuarios.crear', compact('roles'));
+        $roles = Role::pluck('name', 'name')->all();
+        return view('users.register', compact('roles'));
     }
 
     /**
@@ -57,7 +57,7 @@ class UsuarioController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('usuarios.index');
+        return redirect()->route('users.index');
 
     }
 
@@ -84,7 +84,7 @@ class UsuarioController extends Controller
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
 
-        return view('usuarios.editar', compact('user', 'roles', 'userRole'));
+        return view('users.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
@@ -116,7 +116,7 @@ class UsuarioController extends Controller
         DB::table('model_has_role')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles'));
-        return redirect()->route('usuarios.index');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -128,6 +128,6 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('usuarios.index');
+        return redirect()->route('users.index');
     }
 }
