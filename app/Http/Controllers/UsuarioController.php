@@ -45,10 +45,10 @@ class UsuarioController extends Controller
     {
         $this->validate($request, [
             
-            'name' => 'required',
-            'email' => 'required | email | unique:user, email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'name'      => 'required',
+            'email'     => 'required | email | unique:user, email',
+            'password'  => 'required|same:confirm-password',
+            'roles'     => 'required'
         ]);
 
         $input = $request->all();

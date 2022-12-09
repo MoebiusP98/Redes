@@ -10,10 +10,31 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="text-center">Dashboard Content</h3>
 
-                            {{-- <a class="btn btn-warning" href="{{ route('users.register') }}">Nuevo --}}
+                            <a class="btn btn-warning" href="{{ route('users.register') }}">Nuevo</a>
                             
+                                <table class="table table-striped mt-2">
+                                    <thead style="background-color: #6777ef;">
+                                        <th >ID</th>
+                                        <th >Nombre</th>
+                                        <th >E-mail</th>
+                                        <th >Rol</th>
+                                        <th >Acciones</th>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach ($users as $usuario)
+
+                                        <tr>
+                                            <td >{{$usuario->id}}</td>
+                                            <td>{{$usuario->name}}</td>
+                                            <td>{{$usuario->email}}</td>
+                                        </tr>
+                                            
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
                         </div>
                     </div>
                 </div>
