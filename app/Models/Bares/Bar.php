@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Bar extends Model
 {
     //
-    use HasFactory
+    use HasFactory;
+
     protected $fillable = ['titulo', 'contenido'];
+
+    protected $table = 'bar';
 
 
 

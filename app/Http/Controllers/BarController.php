@@ -23,7 +23,7 @@ class BarController extends Controller
     public function index()
     {
         $bar = Bar::paginate(5);
-        return view('blog.index', compact('bares'));
+        return view('bares.index', compact('bar'));
     }
     /**
      * Show the form for creating a new resource.
