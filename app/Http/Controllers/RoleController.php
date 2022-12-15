@@ -13,7 +13,7 @@ class RoleController extends Controller
 
     function __construct()
     {
-       $this->middleware('permission:ver-role | crear-role | editar-role | borrar-role',['only'=>['index']]);
+       $this->middleware('permission:ver-role|crear-role|editar-role|borrar-role',['only'=>['index']]);
        $this->middleware('permission:crear-rol', ['only'=>['create', 'store']]); 
        $this->middleware('permission:editar-rol', ['only'=>['edit', 'update']]);
        $this->middleware('permission:borrar-rol', ['only'=>['destroy']]);
@@ -39,7 +39,7 @@ class RoleController extends Controller
     public function create()
     {
         $permission = Permission::get();
-        return view ('roles.crear', compact('permission'));
+        return view ('roles.register', compact('permission'));
     }
 
     /**

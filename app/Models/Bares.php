@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Models\Bares;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Promotion extends Model
+class Bares extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'contenido']; 
 }

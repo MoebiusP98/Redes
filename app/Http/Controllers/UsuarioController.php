@@ -9,7 +9,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Arr;
+use Illuminate\Support\Arr;
 class UsuarioController extends Controller
 {
     /**
@@ -99,7 +99,7 @@ class UsuarioController extends Controller
         $this->validate($request, [
             
             'name' => 'required',
-            'email' => 'required | email | unique:user, email'.$id,
+            'email' => 'required | email | unique:user, email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);

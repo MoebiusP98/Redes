@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Bares\Bar;
+use App\Models\Bares;
 
 class BarController extends Controller
 {
 
     function __construct()
     {
-       $this->middleware('permission:ver-bar | crear-bar | editar-bar | borrar-role',['only'=>['index']]);
+       $this->middleware('permission:ver-bar|crear-bar|editar-bar|borrar-role',['only'=>['index']]);
        $this->middleware('permission:crear-bar',  ['only'=>['create', 'store']]); 
        $this->middleware('permission:editar-bar', ['only'=>['edit', 'update']]);
        $this->middleware('permission:borrar-bar', ['only'=>['destroy']]);
@@ -22,8 +22,8 @@ class BarController extends Controller
      */
     public function index()
     {
-        $bar = Bar::paginate(5);
-        return view('bares.index', compact('bar'));
+        $bares = Bares::paginate(5);
+        return view('bares.index', compact('bares'));
     }
     /**
      * Show the form for creating a new resource.
@@ -32,7 +32,7 @@ class BarController extends Controller
      */
     public function create()
     {
-        return view('bares.crear');
+        return view('bares.register');
     }
 
     /**
@@ -49,7 +49,7 @@ class BarController extends Controller
 
         ]);
 
-        Bar::create($request->all());
+        Bares::create($request->all());
         return redirect()->route('bares.index');
     }
 
@@ -70,9 +70,9 @@ class BarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bar $bar)
+    public function edit(Bares $bares)
     {
-        return view('bares.editar', compact('bares'));
+        return view('bares.edit', compact('bares'));
     }
 
     /**
@@ -82,7 +82,7 @@ class BarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bar $bar)
+    public function update(Request $request, Bares $bares)
     {
        request()->validate([
 
@@ -91,7 +91,7 @@ class BarController extends Controller
 
        ]);
 
-       $bar->update($request->all());
+       $bares->update($request->all());
        return redirect()->route('bares.index');
     }
 
@@ -101,9 +101,9 @@ class BarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bar $bar)
+    public function destroy(Bares $bares)
     {
-        $bar->delete();
+        $bares->delete();
         return redirect()->route('bares.index');
     }
 }
