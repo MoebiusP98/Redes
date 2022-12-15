@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bares', function (Blueprint $table) {
+        Schema::create('bares_places', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('ubicacion');
-            $table->text('contenido');
-            $table->time('hora_apertura');
-            $table->time('hora_cierre');
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bares');
+        Schema::dropIfExists('bares_places');
     }
 };
